@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->string('company_name');
+            $table->longText('company_desc')->nullable();
+            $table->longText('company_phone')->nullable();
+            $table->longText('company_email')->nullable();
+            $table->longText('company_website')->nullable();
+            $table->string('address')->nullable();
+            $table->string('address_city')->nullable();
+            $table->string('address_country')->nullable();
+            $table->integer('status')->default(0);
+            // set relations
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

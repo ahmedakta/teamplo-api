@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('bio')->nullable();
-            $table->text('image')->default('default_profile_image.webp');
+            $table->text('image')->default('default_profile_image.png');
             $table->string('email')->unique();
             $table->unsignedBigInteger('role_id')->default(2)->comment('2 is user ID');
+            $table->integer('status')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
