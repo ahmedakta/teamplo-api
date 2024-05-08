@@ -1,6 +1,8 @@
 <?php
 
 namespace Database\Seeders;
+
+use App\Models\Project;
 use Illuminate\Support\Facades\Hash; // <-- import it at the top
 
 use App\Models\User;
@@ -17,17 +19,20 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Task::factory(10)->create();
+        Project::factory(10)->create();
 
         User::factory()->create([
             'name' => 'Ahmet AKTA',
             'role_id' => 1, // ADMIN ACCOUNT
             'email' => 'ahmdekta@gmail.com',
+            'image' => 'default_profile_image.png',
             'password' => bcrypt('asdasdasd'),
         ]);
         User::factory()->create([
             'name' => 'Content Creator',
-            'role_id' => 3, // ADMIN ACCOUNT
+            'role_id' => 3, // Content Creator ACCOUNT
             'email' => 'contentcreator@gmail.com',
+            'image' => 'default_profile_image.png',
             'password' => bcrypt('asdasdasd'),
         ]);
 
