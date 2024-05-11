@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -17,8 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
             // \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
-
+        
         $middleware->alias([
+            'admin' => AdminMiddleware::class,
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class, 
         ]);
 

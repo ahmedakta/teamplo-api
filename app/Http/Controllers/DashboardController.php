@@ -21,21 +21,30 @@ class DashboardController extends Controller
     // Dashboard index view for all roles
     public function index()
     {
-        // ADMIN ROLE DATA
         $data = [];
+        // ADMIN ROLE DATA
         if($this->currentUser->role_id == User::ADMIN_ROLE)
         {
-            //  ____ Chart information data ____
-            $projects = Project::all();
+            // ____ Load Models ___ 
             $departments = Department::all();
-            $data['chart']['labels'] = $departments->pluck('department_name')->toArray();
-            $data['chart']['data'] = [20 , 30 ,50 ,40 ,10 ,5 ,70 ,80 , 90 , 40];
-            
+            //  ____ Chart information data ____
+            $data['chart'] = [
+                'labels' =>$departments->pluck('department_name')->toArray(),
+                'datasets' => [
+                    [
+                        'backgroundColor' => ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
+                        'data' => [20 , 30 ,50 ,40 ,10 ,5 ,70 ,80 , 90 , 40],
+                    ]
+                ]
+            ];
             // Recent mentoined tasks
+
     
     
             // Projects progress section
-            return response()->json($data);
+            $projects = Project::all();
+            $data['projects'] = $projects;
         }
+        return response()->json($data);
     }
 }
