@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Company;
+use App\Models\Department;
 use App\Models\Project;
 use Illuminate\Support\Facades\Hash; // <-- import it at the top
 
@@ -20,7 +22,7 @@ class DatabaseSeeder extends Seeder
     {
         Task::factory(10)->create();
         Project::factory(10)->create();
-
+        
         User::factory()->create([
             'name' => 'Ahmet AKTA',
             'role_id' => 1, // ADMIN ACCOUNT
@@ -28,6 +30,14 @@ class DatabaseSeeder extends Seeder
             'image' => 'default_profile_image.png',
             'password' => bcrypt('asdasdasd'),
         ]);
+        
+        Company::create([
+            'user_id' => 1,
+            'company_name' => 'Teamplo',
+            'company_desc' => 'Company Managment Software', // ADMIN ACCOUNT
+        ]);
+
+        Department::factory(10)->create();
         User::factory()->create([
             'name' => 'Content Creator',
             'role_id' => 3, // Content Creator ACCOUNT

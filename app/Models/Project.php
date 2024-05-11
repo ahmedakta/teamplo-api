@@ -17,4 +17,14 @@ class Project extends Model
         'project_priority',
         'status',
     ];
+
+    public function department()
+    {
+        $this->belongsTo(Department::class);
+    }
+
+    public function tasks()
+    {
+        $this->hasMany(Task::class);
+    }
 }
