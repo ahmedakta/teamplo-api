@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('department_id');
             $table->string('project_name');
             $table->string('project_description');
             $table->date('project_start_at');
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->integer('project_budget');
             $table->integer('project_priority');
             $table->integer('status');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->timestamps();
         });
     }

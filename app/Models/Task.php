@@ -15,12 +15,13 @@ class Task extends Model
     const CANCELLED = 0;
     protected $fillable = [
         'name',
+        'project_id',
         'description',
         'status',
     ];
 
     public function project()
     {
-        $this->belongsTo(Project::class);
+        $this->belongsTo(Project::class , 'project_id');
     }
 }

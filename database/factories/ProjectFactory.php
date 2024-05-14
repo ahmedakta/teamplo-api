@@ -18,6 +18,7 @@ class ProjectFactory extends Factory
     {
         return [
             'project_name' => fake()->name(),
+            'department_id' => rand(1, 10),
             'project_description' => fake()->paragraph(1),
             'project_start_at' => fake()->dateTime(),
             'project_end_at' => fake()->dateTime(),

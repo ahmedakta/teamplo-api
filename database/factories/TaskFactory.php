@@ -18,8 +18,9 @@ class TaskFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'project_id' => rand(1,10),
             'description' => fake()->paragraph(1),
-            'status' => rand(1,0),
+            'status' => rand(0,1),
         ];
     }
 }

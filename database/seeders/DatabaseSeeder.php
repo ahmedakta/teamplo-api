@@ -20,9 +20,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Task::factory(10)->create();
-        Project::factory(10)->create();
-        
+        // create users
         User::factory()->create([
             'name' => 'Ahmet AKTA',
             'role_id' => 1, // ADMIN ACCOUNT
@@ -31,13 +29,6 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('asdasdasd'),
         ]);
         
-        Company::create([
-            'user_id' => 1,
-            'company_name' => 'Teamplo',
-            'company_desc' => 'Company Managment Software', // ADMIN ACCOUNT
-        ]);
-
-        Department::factory(10)->create();
         User::factory()->create([
             'name' => 'Content Creator',
             'role_id' => 3, // Content Creator ACCOUNT
@@ -45,7 +36,28 @@ class DatabaseSeeder extends Seeder
             'image' => 'default_profile_image.png',
             'password' => bcrypt('asdasdasd'),
         ]);
+        // random users
+        User::factory(20)->create();
+        // assign projects to users
+     
 
+        // create company
+        Company::create([
+            'user_id' => 1,
+            'company_name' => 'Teamplo',
+            'company_desc' => 'Company Managment Software', // ADMIN ACCOUNT
+        ]);
+
+        Department::factory(10)->create();
+        Project::factory(10)->create();
+        Task::factory(10)->create();
+        $projects = Project::all();
+
+        User::all()->each(function ($user) use ($projects) { 
+            $user->projects()->attach(
+                $projects->random(rand(1, 3))->pluck('id')->toArray()
+            ); 
+        });
 
 
         // Roles

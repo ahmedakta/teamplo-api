@@ -18,7 +18,7 @@ class Department extends Model
  
     public function projects()
     {
-        $this->hasMany(Project::class);
+        return $this->hasMany(Project::class , 'department_id');
     }
 
     public function scopeCompletedTasks()

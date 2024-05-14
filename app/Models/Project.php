@@ -10,6 +10,7 @@ class Project extends Model
     use HasFactory;
     protected $fillable = [
         'project_name',
+        'department_id',
         'project_description',
         'project_start_at',
         'project_end_at',
@@ -20,11 +21,16 @@ class Project extends Model
 
     public function department()
     {
-        $this->belongsTo(Department::class);
+        return $this->belongsTo(Department::class);
     }
 
     public function tasks()
     {
-        $this->hasMany(Task::class);
+        return $this->hasMany(Task::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 }
