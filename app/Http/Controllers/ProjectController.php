@@ -6,6 +6,7 @@ use App\Models\Department;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema as FacadesSchema;
 
 class ProjectController extends Controller
 {
@@ -19,11 +20,22 @@ class ProjectController extends Controller
     }
     public function index()
     {
-        // the array should have a labels and data
-        $projects = Project::all();
-        $departments = Department::all();
-        $data['labels'] = $departments->pluck('department_name')->toArray();
-        $data['data'] = [20 , 30 ,50 ,40 ,10 ,5 ,70 ,80 , 90 , 40];
-        return response()->json($data);
+       // the array should have a labels and data
+       $projectModel = new Project;
+       $tableName = $projectModel->getTable();
+       $columns = FacadesSchema::getColumnListing($tableName);
+       $fields = [];
+       foreach ($columns as $key => $column) {
+           $field = [];
+           $field['field'] = $column;
+           $field['title'] = ucwords(str_replace('_', ' ', $column));
+           $field['width'] = "90px";
+           array_push($fields , $field);
+       }
+       $data['cols'] = json_encode($fields);
+       // { field: "id", title: "ID", width: "90px", filter: false },
+       $projects = Project::paginate();
+       $data['data'] = $projects->toJson();
+       return response()->json($data);
     }
 }

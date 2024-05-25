@@ -23,6 +23,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard' , [DashboardController::class , 'index']);
 });
 
+Route::get('/projects' , [ProjectController::class , 'index']);
+
+
 // Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 //     // Admin-only routes
 // });
