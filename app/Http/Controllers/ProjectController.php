@@ -27,6 +27,7 @@ class ProjectController extends Controller
        $fields = [];
        foreach ($columns as $key => $column) {
            $field = [];
+           $column == 'id' ? $field['isUnique'] = true : '';
            $field['field'] = $column;
            $field['title'] = ucwords(str_replace('_', ' ', $column));
            $field['width'] = "90px";
@@ -35,7 +36,7 @@ class ProjectController extends Controller
        $data['cols'] = json_encode($fields);
        // { field: "id", title: "ID", width: "90px", filter: false },
        $projects = Project::paginate();
-       $data['data'] = $projects->toJson();
+       $data['data'] = $projects;
        return response()->json($data);
     }
 }
