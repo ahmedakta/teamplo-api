@@ -18,8 +18,9 @@ class ProjectController extends Controller
 
         // You can share more data here if needed
     }
-    public function index()
+    public function index(Request $request)
     {
+       $search_param = $request->get('search');
        // the array should have a labels and data
        $projectModel = new Project;
        $tableName = $projectModel->getTable();
@@ -30,12 +31,11 @@ class ProjectController extends Controller
            $column == 'id' ? $field['isUnique'] = true : '';
            $field['field'] = $column;
            $field['title'] = ucwords(str_replace('_', ' ', $column));
-           $field['width'] = "90px";
+           $field['width'] = "190px";
            array_push($fields , $field);
        }
        $data['cols'] = json_encode($fields);
-       // { field: "id", title: "ID", width: "90px", filter: false },
-       $projects = Project::paginate();
+       $projects = Project::where('project_name','LIKE', '%' . $search_param . '%')->paginate();
        $data['data'] = $projects;
        return response()->json($data);
     }

@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Department::factory(10)->create();
-        Project::factory(30)->create();
+        Project::factory(40)->create();
         Task::factory(10)->create();
         $projects = Project::all();
 
