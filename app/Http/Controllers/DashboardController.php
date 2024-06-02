@@ -49,13 +49,12 @@ class DashboardController extends Controller
                 $progressValue = $totalTasks > 0 ? $totalCompletedTasks / $totalTasks : 0.0;
                 array_push($chartData ,  $progressValue);
             }
-
             $data['chart'] = [
                 'labels' =>$departments->pluck('department_name')->toArray(),
                 'datasets' => [
                     [
                         'backgroundColor' => ['#41B883', '#E46651', '#00D8FF', '#DD1B16' , '#00000'],
-                        'data' => $chartData,
+                        'data' => [1,2,3,4,5,6,7,8,9,10],
                     ]
                 ]
             ];
