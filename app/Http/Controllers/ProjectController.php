@@ -23,11 +23,13 @@ class ProjectController extends Controller
         // get params
         $search_param = $request->get('search');
 
+        // selected fields
+        $selected_columns = ['id' , 'department_id' , 'project_name' , 'project_description' , 'project_start_at' , 'project_end_at' , 'project_budget' , 'project_priority' , 'status'];
         // prepare fields of model to datatable
-        $fields = Helper::dataTable('Project');
+        $fields = Helper::dataTable('Project' , $selected_columns);
         
         $data['cols'] = json_encode($fields);
-        $projects = Project::where('project_name','LIKE', '%' . $search_param . '%')->paginate();
+        $projects = Project::where('project_name','LIKE', '%' . $search_param . '%')->select($selected_columns)->paginate();
         $data['data'] = $projects;
         return response()->json($data);
     }
