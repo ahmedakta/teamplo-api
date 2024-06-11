@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Company;
 use App\Models\Department;
 use App\Models\Project;
@@ -20,6 +21,51 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        // Categories
+        Category::create([
+            'category_name' => 'STAGES',
+        ]);
+        Category::create([
+            'category_name' => 'PRIORITIES',
+        ]);
+        // STATUSES
+        Category::create([
+            'category_name' => 'Completed',
+            'category_color' => 'bg-green-300',
+            'parent_id' => 1,
+        ]);
+        Category::create([
+            'category_name' => 'Not Started',
+            'category_color' => 'bg-gray-500',
+            'parent_id' => 1,
+        ]);
+        Category::create([
+            'category_name' => 'In Progress',
+            'category_color' => 'bg-blue-500',
+            'parent_id' => 1,
+        ]);
+        Category::create([
+            'category_name' => 'Cancelled',
+            'category_color' => 'bg-red-500',
+            'parent_id' => 1,
+        ]);
+        // PRIORITIES
+        Category::create([
+            'category_name' => 'High',
+            'category_color' => 'bg-red-500',
+            'parent_id' => 2,
+        ]);
+        Category::create([
+            'category_name' => 'Medium',
+            'category_color' => 'bg-orange-500',
+            'parent_id' => 2,
+        ]);
+        Category::create([
+            'category_name' => 'Low',
+            'category_color' => 'bg-green-300',
+            'parent_id' => 2,
+        ]);
         // create users
         User::factory()->create([
             'name' => 'Ahmet AKTA',
@@ -70,5 +116,6 @@ class DatabaseSeeder extends Seeder
         Role::create([
             'name' => 'Content Creator',
         ]);
+
     }
 }

@@ -23,7 +23,8 @@ class ProjectFactory extends Factory
             'project_start_at' => fake()->dateTime(),
             'project_end_at' => fake()->dateTime(),
             'project_budget' => fake()->randomDigit(),
-            'project_priority' => rand(3,0),
+            'project_priority' => rand(7,9),
+            'project_stage' => rand(3,6),
             'status' => rand(1,0),
         ];
     }

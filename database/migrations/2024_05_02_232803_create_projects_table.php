@@ -13,15 +13,20 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('department_id');
             $table->string('project_name');
             $table->string('project_description');
             $table->date('project_start_at');
             $table->date('project_end_at');
             $table->integer('project_budget');
-            $table->integer('project_priority');
+            $table->unsignedBigInteger('project_priority');
+            $table->unsignedBigInteger('project_stage');
             $table->integer('status');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('project_priority')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('project_stage')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

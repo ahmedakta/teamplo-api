@@ -20,13 +20,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     
     
     // projects routes section
-    Route::get('/projects' , [ProjectController::class , 'index']);
     Route::put('/project/update' , [ProjectController::class , 'update']);
     Route::get('/project/{id}' , [ProjectController::class , 'view']);
     Route::delete('/project/delete/{id}', [ProjectController::class, 'destroy']);
     Route::get('/dashboard' , [DashboardController::class , 'index']);
 });
 
+Route::get('/projects' , [ProjectController::class , 'index']);
 
 
 // Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
