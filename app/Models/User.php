@@ -55,4 +55,27 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Project::class);
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+    public function hasPermission($permission)
+    {
+        foreach ($this->roles as $role) {
+            if ($role->permissions->contains('name', $permission)) {
+                return true;
+            }
+        }
+        return false;
+    }
+      // Check if the user has a specific role
+      public function hasRole($role)
+      {
+          return $this->roles()->where('name', $role)->exists();
+      }
 }

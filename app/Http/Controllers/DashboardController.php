@@ -73,6 +73,6 @@ class DashboardController extends Controller
                 }
             }
         }
-        return response()->json($data);
+        return response()->json(['data' => $data , 'message' => 'success'] ,200);
     }
 }

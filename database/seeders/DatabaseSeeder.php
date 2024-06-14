@@ -5,12 +5,14 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Department;
+use App\Models\Permission;
 use App\Models\Project;
 use Illuminate\Support\Facades\Hash; // <-- import it at the top
 
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Task;
+use App\Models\UserRole;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -66,9 +68,15 @@ class DatabaseSeeder extends Seeder
             'category_color' => 'bg-green-300',
             'parent_id' => 2,
         ]);
+        // create company
+        Company::create([
+            'company_name' => 'Teamplo',
+            'company_desc' => 'Company Managment Software', // ADMIN ACCOUNT
+        ]);
         // create users
         User::factory()->create([
             'name' => 'Ahmet AKTA',
+            'company_id' => 1,
             'role_id' => 1, // ADMIN ACCOUNT
             'email' => 'ahmdekta@gmail.com',
             'image' => 'default_profile_image.png',
@@ -87,12 +95,7 @@ class DatabaseSeeder extends Seeder
         // assign projects to users
      
 
-        // create company
-        Company::create([
-            'user_id' => 1,
-            'company_name' => 'Teamplo',
-            'company_desc' => 'Company Managment Software', // ADMIN ACCOUNT
-        ]);
+        
 
         Department::factory(10)->create();
         Project::factory(40)->create();
@@ -108,14 +111,39 @@ class DatabaseSeeder extends Seeder
 
         // Roles
         Role::create([
+            'name' => 'Owner',
+        ]);
+        Role::create([
             'name' => 'Admin',
         ]);
         Role::create([
-            'name' => 'User',
+            'name' => 'Manager',
+        ]);
+        Role::create([
+            'name' => 'Employee',
+        ]);
+        Role::create([
+            'name' => 'HR',
+        ]);
+        Role::create([
+            'name' => 'Finance',
         ]);
         Role::create([
             'name' => 'Content Creator',
         ]);
 
+        $permissions = [
+            'create user', 'edit user', 'delete user', 'view user',
+            'assign role', 'revoke role', 'create role', 'edit role', 'delete role',
+            'create project', 'edit project', 'delete project', 'view project',
+            'create task', 'edit task', 'delete task', 'view task',
+            'generate report', 'view report',
+            'approve request', 'reject request', 'view request',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
+        UserRole::create(['user_id' => 1 , 'role_id' => 1]);
     }
 }

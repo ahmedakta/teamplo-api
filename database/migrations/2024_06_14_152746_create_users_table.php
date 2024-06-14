@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->unsignedBigInteger('department_id')->nullable();
             $table->string('name');
             $table->string('bio')->nullable();
             $table->string('image')->default('default_profile_image.png')->nullable();
@@ -21,6 +23,9 @@ return new class extends Migration
             $table->integer('status')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });
