@@ -79,7 +79,7 @@ class ProjectController extends Controller
     public function save(Request $request)
     {
         try{
-            $data = $request->all()['params'];
+            $data = $request->all()['params']['value'];
             $project = Project::create($data);
         }catch(\Exception $e){
             $msg = $e->getMessage();
@@ -90,11 +90,7 @@ class ProjectController extends Controller
 
     public function create()
     {
-        $company = Auth::user()->company;
-        return $company;
-        $departments = Department::where(['status' => 1]);
-        $users = User::where(['role_id' => 2 , 'status' => 1])->get();
-        $data['users'] = $users; 
+        $departments = $this->currentUser->company->departments->where('status' , 1);
         $data['departments'] = $departments;
         return response()->json(['data' => $data ,'message' => 'sucess'], 200);
     }
