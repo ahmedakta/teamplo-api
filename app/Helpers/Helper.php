@@ -29,11 +29,19 @@ class Helper
                 array_push($fields , $field);
             }
         }
+
+        // Projects Table
+        if($modelName == 'Project')
+        {
+            // Add Fields
+            array_push($fields , ['width' => '100px','field' => 'progress' , 'title' => 'Progress' ]);
+            array_push($fields , ['field' => 'assignments' , 'title' => 'Assignments' ]);
+        }
+
         //    add actions column manually
-        array_push($fields , ['width' => '100px','field' => 'progress' , 'title' => 'Progress' ]);
-        array_push($fields , ['field' => 'assignments' , 'title' => 'Assignments' ]);
         array_push($fields , ['field' => 'actions' , 'title' => 'Actions' ]);
-         return $fields;
+
+        return $fields;
     } 
 }
 ?>

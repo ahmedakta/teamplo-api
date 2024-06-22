@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Project extends Model
 {
-    use HasFactory;
+    use HasFactory , Sluggable;
     protected $fillable = [
         'project_name',
+        'slug',
         'category_id',
         'department_id',
         'project_description',
@@ -20,6 +22,15 @@ class Project extends Model
         'project_stage',
         'status',
     ];
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'project_name'
+            ]
+        ];
+    }
 
     public function department()
     {

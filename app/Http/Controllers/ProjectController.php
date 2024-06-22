@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Helpers\Helper;
+use App\Models\Category;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,15 +24,22 @@ class ProjectController extends Controller
     {
         // get params
         $search_param = $request->get('search');
-
         // selected fields
-        $selected_columns = ['id' , 'department_id' , 'project_name'  , 'project_start_at' , 'project_end_at' , 'project_budget' , 'project_priority' ,'project_stage'];
+        $data_table_columns = ['id' , 'department_id','slug', 'project_name'  , 'project_start_at' , 'project_end_at' , 'project_budget' , 'project_priority' ,'project_stage'];
         // prepare fields of model to datatable
-        $fields = Helper::dataTable('Project' , $selected_columns);
-        
+        $fields = Helper::dataTable('Project' , $data_table_columns);
         $data['cols'] = json_encode($fields);
-        $projects = Project::where('project_name','LIKE', '%' . $search_param . '%')->with(['priority:id,category_name,category_color' , 'stage:id,category_name,category_color' , 'department:id,department_name','users'])->select($selected_columns)->paginate();
-        // Get Progress of projects
+        $projects = Project::where('project_name', 'LIKE', '%' . $search_param . '%')
+        ->with([
+            'priority:id,category_name,category_color',
+            'stage:id,category_name,category_color',
+            'department:id,department_name',
+            'users'
+        ])
+        ->select($data_table_columns)
+        ->orderBy('created_at', 'desc')  // First order by created_at in descending order
+        ->orderBy('project_priority', 'asc')  // Then order by priority_id in ascending order
+        ->paginate();        // Get Progress of projects
         foreach ($projects as $key => $project) {
             if($project->tasks()->count())
             {
@@ -53,10 +61,10 @@ class ProjectController extends Controller
         return response()->json(['message' => 'Record not found' , 'data' => []], 404);
     }
 
-    public function view($id)
+    public function view($slug)
     {
-        $data = Project::find($id);
-        return response()->json(['data' =>$data , 'message' => 'success' ] , 200);
+        $data = Project::where('slug', $slug)->first();
+        return response()->json(['data' => $data , 'message' => 'success' ] , 200);
     }
 
     public function update(Request $request)
@@ -81,6 +89,8 @@ class ProjectController extends Controller
         try{
             $data = $request->all()['params']['value'];
             $project = Project::create($data);
+            $msg = "Project Created Successfully";
+            $code = 200;
         }catch(\Exception $e){
             $msg = $e->getMessage();
             $code = 500;
@@ -91,6 +101,7 @@ class ProjectController extends Controller
     public function create()
     {
         $departments = $this->currentUser->company->departments->where('status' , 1);
+        $data['stages'] = Category::where('parent_id' , 1)->get();
         $data['departments'] = $departments;
         return response()->json(['data' => $data ,'message' => 'sucess'], 200);
     }

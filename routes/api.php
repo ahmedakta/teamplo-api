@@ -22,7 +22,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // projects routes section
     Route::put('/project/update' , [ProjectController::class , 'update']);
     Route::post('/project/save' , [ProjectController::class , 'save']);
-    Route::get('/project/{id}' , [ProjectController::class , 'view']); // TODO 
+    Route::get('/project/{slug}' , [ProjectController::class , 'view']); // TODO 
     Route::delete('/project/delete/{id}', [ProjectController::class, 'destroy']);
     Route::get('/dashboard' , [DashboardController::class , 'index']);
 });

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('department_id');
             $table->string('project_name');
+            $table->string('slug');
             $table->string('project_description');
             $table->date('project_start_at');
             $table->date('project_end_at');
