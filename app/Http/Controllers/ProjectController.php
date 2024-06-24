@@ -105,4 +105,11 @@ class ProjectController extends Controller
         $data['departments'] = $departments;
         return response()->json(['data' => $data ,'message' => 'sucess'], 200);
     }
+
+    public function users($department_id)
+    {
+        $assignmentUsers = Department::find($department_id)->users;
+        $data['assignmentUsers'] = $assignmentUsers;
+        return response()->json(['data' => $data , 'message' => 'success'] , 200);
+    }
 }
