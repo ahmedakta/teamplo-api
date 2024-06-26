@@ -26,6 +26,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/project/save' , [ProjectController::class , 'save']);
     Route::get('/project/{slug}' , [ProjectController::class , 'view']); // TODO 
     Route::delete('/project/delete/{id}', [ProjectController::class, 'destroy']);
+    // assing user to project
+    Route::post('/project/assign-user' , [ProjectController::class , 'userAssignment']);
+    
     Route::get('/dashboard' , [DashboardController::class , 'index']);
 });
 

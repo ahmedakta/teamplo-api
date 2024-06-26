@@ -112,4 +112,28 @@ class ProjectController extends Controller
         $data['assignmentUsers'] = $assignmentUsers;
         return response()->json(['data' => $data , 'message' => 'success'] , 200);
     }
+
+    public function userAssignment(Request $request)
+    {
+        $params = $request->all()['params'];
+        // Find the project
+        $project = Project::findOrFail($params['project_id']);
+
+   
+        // Check if the user is already assigned to the project
+        if ($project->users()->where('user_id', $params['user_id'])->exists()) {
+            // Detach the user from the project
+            $project->users()->detach($params['user_id']);
+            return response()->json([
+                'data' => [],
+                'message' => 'User is detached from this project',
+            ], 200);
+        }
+
+        // Attach the user to the project
+        $project->users()->attach($params['user_id']);
+        $data = [];
+        $data['project_users'] = $project->load('users');
+        return response()->json(['data' => $data , 'message' => 'User Assigned Successfully'] , 200);
+    }
 }
