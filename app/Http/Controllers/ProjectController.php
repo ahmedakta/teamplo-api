@@ -132,8 +132,16 @@ class ProjectController extends Controller
 
         // Attach the user to the project
         $project->users()->attach($params['user_id']);
+        // Get The projects 
+        $projects = Project::with([
+            'priority:id,category_name,category_color',
+            'stage:id,category_name,category_color',
+            'department:id,department_name',
+            'users'
+        ])->paginate();
         $data = [];
         $data['project_users'] = $project->load('users');
+        $data['data'] = $projects;
         return response()->json(['data' => $data , 'message' => 'User Assigned Successfully'] , 200);
     }
 }
