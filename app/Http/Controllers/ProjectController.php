@@ -95,7 +95,7 @@ class ProjectController extends Controller
             $msg = $e->getMessage();
             $code = 500;
         }
-        return response()->json(['message' => $msg], $code);
+        return response()->json(['data' => NULL,'message' => $msg], $code);
     }
 
     public function create()
