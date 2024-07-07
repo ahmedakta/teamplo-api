@@ -53,7 +53,7 @@ class DashboardController extends Controller
                 'labels' =>$departments->pluck('department_name')->toArray(),
                 'datasets' => [
                     [
-                        'backgroundColor' => ['#41B883', '#E46651', '#00D8FF', '#DD1B16' , '#00000'],
+                        'backgroundColor' => ['#41B883', '#6FB0C1', '#00D8FF', '#DD1B16' , '#4464C5'],
                         'data' => [1,2,3,4,5,6,7,8,9,10],
                     ]
                 ]
