@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('company_id');
             $table->string('department_name');
+            $table->string('slug');
             $table->string('department_desc')->nullable();
+            $table->string('department_image')->nullable();
             $table->integer('status')->default(0);
             // set relations
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');

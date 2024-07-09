@@ -6,6 +6,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\DepartmentController;
 
 // Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 //     return $request->user();
@@ -13,27 +14,36 @@ use App\Http\Controllers\ProjectController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/logged-in-user' , [UserController::class , 'loggedInUser']);
-    // tasks routes section 
+
+
+    
+    // ***************** tasks routes section ******************************
     Route::get('/tasks' , [TaskController::class , 'index']);
     Route::post('/tasks/delete/{id}' , [TaskController::class , 'delete']);
     
-    // department routes
+    // ****************** Department Routes *****************************
     Route::get('/department/users/{id}' , [ProjectController::class , 'users']);
+    Route::get('/departments' , [DepartmentController::class , 'index']);
+    Route::get('/department/{slug}' , [DepartmentController::class , 'view']);
     
     
-    // projects routes section
+    // ******************* Projects Routes Sections ***********************
     Route::put('/project/update' , [ProjectController::class , 'update']);
     Route::post('/project/save' , [ProjectController::class , 'save']);
     Route::get('/project/{slug}' , [ProjectController::class , 'view']); // TODO 
     Route::delete('/project/delete/{id}', [ProjectController::class, 'destroy']);
     // assing user to project
     Route::post('/project/assign-user' , [ProjectController::class , 'userAssignment']);
+    Route::get('/projects' , [ProjectController::class , 'index']);
+    Route::get('/projects/create' , [ProjectController::class , 'create']);
     
+
+
+
+    // ******************* Dashboard ***********************
     Route::get('/dashboard' , [DashboardController::class , 'index']);
 });
 
-Route::get('/projects' , [ProjectController::class , 'index']);
-Route::get('/projects/create' , [ProjectController::class , 'create']);
 
 
 // Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
