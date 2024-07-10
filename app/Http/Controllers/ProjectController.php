@@ -22,14 +22,28 @@ class ProjectController extends Controller
     }
     public function index(Request $request)
     {
-        // get params
-        $search_param = $request->get('search');
+        // get search params
+        $search_params = [
+            ['project_name', 'LIKE', '%' . $request->get('search') . '%'],
+            ['department_id', $request->get('department_id')],
+            ['project_start_at', $request->get('project_start_at')],
+            ['project_end_at', $request->get('project_end_at')],
+            ['project_stage', $request->get('project_stage')],
+            ['project_priority', $request->get('project_priority')],
+            ['project_budget', $request->get('project_budget')],
+        ];
+        // Filter out null values
+        $search_params = array_filter($search_params, function($param) {
+            return !is_null($param[1]);
+        });
+        
         // selected fields
         $data_table_columns = ['id' , 'department_id','slug', 'project_name'  , 'project_start_at' , 'project_end_at' , 'project_budget' , 'project_priority' ,'project_stage'];
+        
         // prepare fields of model to datatable
         $fields = Helper::dataTable('Project' , $data_table_columns);
         $data['cols'] = json_encode($fields);
-        $projects = Project::where('project_name', 'LIKE', '%' . $search_param . '%')
+        $projects = Project::where($search_params)
         ->with([
             'priority:id,category_name,category_color',
             'stage:id,category_name,category_color',
@@ -46,7 +60,12 @@ class ProjectController extends Controller
                 $project->progress = ($project->tasks()->where('status' , 1)->count() / $project->tasks()->count())  * 100;
             }
         }
+        $departments = $this->currentUser->company->departments->where('status' , 1)->select(['id' , 'department_name']);
+        // set data
         $data['data'] = $projects;
+        $data['filter_form']['stages'] = config('variables.stages_ids');
+        $data['filter_form']['priorities'] = config('variables.priorities_ids');
+        $data['filter_form']['departments'] = $departments;
         return response()->json(['data' => $data , 'message' => 'getted data'] , 200);
     }
 
