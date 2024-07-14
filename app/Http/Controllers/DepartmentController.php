@@ -23,7 +23,7 @@ class DepartmentController extends Controller
 
     public function view($slug)
     {
-        $data['department'] = Department::where('slug', $slug)->first();
+        $data['department'] = Department::where('slug', $slug)->with(['projects'])->first();
         $data['tasks'] = Task::where('project_id' , 1)->get();
         return response()->json(['data' => $data , 'message' => 'success' ] , 200);
     }
