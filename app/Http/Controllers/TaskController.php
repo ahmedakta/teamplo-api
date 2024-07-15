@@ -9,10 +9,15 @@ class TaskController extends Controller
 {
     public function index($department_slug , $project_slug)
     {
-        $department_project_tasks = Department::where('slug' , $department_slug)->first()->projects->where('slug' , $project_slug)->first()->tasks;
-        dd($department_project_tasks);
-        $tasks = Task::all();
-        return response()->json($tasks);
+        // gettin data
+        $department = Department::where('slug' , $department_slug)->first();
+        $project = $department->projects->where('slug' , $project_slug)->first();
+        $department_project_tasks = $project->tasks;
+        // set the data;
+        $data['data']['tasks'] = $department_project_tasks;
+        $data['data']['project'] = $project;
+        $data['data']['department'] = $department;
+        return response()->json(['data' => $data , 'message' => 'getted data'] , 200);
     }
     public function destroy($id)
     {
