@@ -18,7 +18,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     
     // ***************** tasks routes section ******************************
-    Route::get('/tasks' , [TaskController::class , 'index']);
+    Route::get('/department/{department_slug}/{project_slug}/tasks' , [TaskController::class , 'index']);
     Route::post('/tasks/delete/{id}' , [TaskController::class , 'delete']);
     
     // ****************** Department Routes *****************************

@@ -47,7 +47,7 @@ class ProjectController extends Controller
         ->with([
             'priority:id,category_name,category_color',
             'stage:id,category_name,category_color',
-            'department:id,department_name',
+            'department:id,department_name,slug',
             'users'
         ])
         ->select($data_table_columns)
