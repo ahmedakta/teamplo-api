@@ -84,9 +84,9 @@ class DatabaseSeeder extends Seeder
         ]);
         
         User::factory()->create([
-            'name' => 'Content Creator',
+            'name' => 'Melike Kayabaşı',
             'role_id' => 3, // Content Creator ACCOUNT
-            'email' => 'contentcreator@gmail.com',
+            'email' => 'melikekayabasi@gmail.com',
             'image' => 'default_profile_image.png',
             'password' => bcrypt('asdasdasd'),
         ]);
