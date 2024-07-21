@@ -40,7 +40,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     
     // ******************* Contents Routes Sections ***********************
     Route::get('/contents' , [ContentController::class , 'index']);
-    Route::delete('/content/:slug/delete' , [ContentController::class , 'destroy']);
+    Route::delete('/content/{slug}/delete' , [ContentController::class , 'destroy']);
 
 
 

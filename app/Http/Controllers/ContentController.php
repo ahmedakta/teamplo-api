@@ -46,11 +46,12 @@ class ContentController extends Controller
     public function destroy($slug)
     {
         try{
-            $content = Content::findOrFail($slug);
+            $content = Content::where('slug' , $slug)->first();
             if(!is_null($content))
             {
                 $content->delete();
-                return response()->json(['success' => 'OK'] , 200);
+                $data = [];
+                return response()->json(['data' => $data , 'message' => 'deleted successfully'] , 200);
             }
         }catch(\Exception $error){
             return response()->json(['error' => $error->getMessage()] , 400);
