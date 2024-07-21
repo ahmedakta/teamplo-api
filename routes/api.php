@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\DepartmentController;
@@ -37,6 +38,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/projects' , [ProjectController::class , 'index']);
     Route::get('/projects/create' , [ProjectController::class , 'create']);
     
+    // ******************* Contents Routes Sections ***********************
+    Route::get('/contents' , [ContentController::class , 'index']);
+    Route::delete('/content/:slug/delete' , [ContentController::class , 'destroy']);
 
 
 

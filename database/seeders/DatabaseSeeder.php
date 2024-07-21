@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Company;
+use App\Models\Content;
 use App\Models\Department;
 use App\Models\Permission;
 use App\Models\Project;
@@ -145,5 +146,8 @@ class DatabaseSeeder extends Seeder
             Permission::create(['name' => $permission]);
         }
         UserRole::create(['user_id' => 1 , 'role_id' => 1]);
+
+        // geenrate fake contentes
+        Content::factory(10)->create();
     }
 }
