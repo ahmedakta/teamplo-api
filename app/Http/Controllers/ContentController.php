@@ -43,6 +43,12 @@ class ContentController extends Controller
         return response()->json(['data' => $data , 'message' => 'getted data'] , 200);
     }
 
+    public function view($slug)
+    {
+        $data = Content::where('slug', $slug)->first();
+        return response()->json(['data' => $data , 'message' => 'success' ] , 200);
+    }
+
     public function destroy($slug)
     {
         try{
