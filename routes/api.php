@@ -51,13 +51,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard' , [DashboardController::class , 'index']);
 });
 
-// Contact Routes
+    // ******************* FRONTEND FORMS ***********************
+    // Contact Routes
     Route::post('/contact-us' , [UserController::class , 'contactUs']);
 
-    Route::get('/csrf-token', function () {
-        return response()->json(['csrf_token' => csrf_token()]);
-    });
-
+    
 // Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 //     // Admin-only routes
 // });
