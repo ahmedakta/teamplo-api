@@ -1,5 +1,9 @@
 <?php
 namespace App\Helpers;
+
+use App\Mail\ContactMail;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema as FacadesSchema;
 class Helper
 {
@@ -43,5 +47,18 @@ class Helper
 
         return $fields;
     } 
+
+    public static function sendEmail($data)
+    {
+        try{
+            Mail::to('teamplocom@gmail.com')->send(new ContactMail());
+            $msg = 'Email Function Runned Successfully';
+            $code = 200;
+        }catch(\Exception $e){
+            $msg = $e->getMessage();
+            $code = 500;
+        }
+        return response()->json(['data' => [] , 'message' => $msg] , $code);
+    }
 }
 ?>
