@@ -53,7 +53,7 @@ class ProjectController extends Controller
         ->select($data_table_columns)
         ->orderBy('created_at', 'desc')  // First order by created_at in descending order
         ->orderBy('project_priority', 'asc')  // Then order by priority_id in ascending order
-        ->paginate();        // Get Progress of projects
+        ->paginate(15, ['*'], 'page', $request->get('page'));       // Get Progress of projects
         foreach ($projects as $key => $project) {
             if($project->tasks()->count())
             {
