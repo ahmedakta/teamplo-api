@@ -24,36 +24,62 @@ class ProjectController extends Controller
     {
         // get search params
         $search_params = [
-            ['project_name', 'LIKE', '%' . $request->get('search') . '%'],
-            ['department_id', $request->get('department_id')],
-            ['project_start_at', $request->get('project_start_at')],
-            ['project_end_at', $request->get('project_end_at')],
-            ['project_stage', $request->get('project_stage')],
-            ['project_priority', $request->get('project_priority')],
-            ['project_budget', $request->get('project_budget')],
+            ['Projects.project_name', 'LIKE', '%' . $request->get('search') . '%'],
+            ['Projects.department_id', $request->get('department_id')],
+            ['Projects.project_start_at', $request->get('project_start_at')],
+            ['Projects.project_end_at', $request->get('project_end_at')],
+            ['Projects.project_stage', $request->get('project_stage')],
+            ['Projects.project_priority', $request->get('project_priority')],
+            ['Projects.project_budget', $request->get('project_budget')],
         ];
         // Filter out null values
         $search_params = array_filter($search_params, function($param) {
             return !is_null($param[1]);
         });
         
+        // page ( // IF WE ARE FILTERING DATA WE REMOVING THE PAGE  )
+        $page = count($search_params) > 1 ? 1 : $request->get('page');
+
         // selected fields
-        $data_table_columns = ['id' , 'department_id','slug', 'project_name'  , 'project_start_at' , 'project_end_at' , 'project_budget' , 'project_priority' ,'project_stage'];
+        $selected_columns = [
+            'Projects.id',
+            'Projects.slug',
+            'project_name',
+            'project_start_at',
+            'project_end_at',
+            'project_budget',
+            'project_priority',
+            'project_stage'
+        ];
+        // datatable columns
+        $data_table_columns = [
+            'id',
+            'department_id',
+            'project_name',
+            'project_start_at',
+            'project_end_at',
+            'project_budget',
+            'project_priority',
+            'project_stage'
+        ];
         
         // prepare fields of model to datatable
-        $fields = Helper::dataTable('Project' , $data_table_columns);
+        $fields = Helper::dataTable('Project' , $data_table_columns);   
+
         $data['cols'] = json_encode($fields);
-        $projects = Project::where($search_params)
+        $projects = $this->currentUser->company->projects()->where($search_params)
         ->with([
             'priority:id,category_name,category_color',
             'stage:id,category_name,category_color',
             'department:id,department_name,slug',
             'users'
         ])
-        ->select($data_table_columns)
+        ->select($selected_columns)
         ->orderBy('created_at', 'desc')  // First order by created_at in descending order
         ->orderBy('project_priority', 'asc')  // Then order by priority_id in ascending order
-        ->paginate(15, ['*'], 'page', $request->get('page'));       // Get Progress of projects
+        ->paginate(15, ['*'], 'page', $page);       
+        
+        // GET PROGRESS OF PROJECTS
         foreach ($projects as $key => $project) {
             if($project->tasks()->count())
             {

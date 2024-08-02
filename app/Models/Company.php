@@ -23,11 +23,19 @@ class Company extends Model
     {
         return $this->hasMany(Department::class);
     }
+
+    // ALL PROJECTS RELATED THE COMPANY BY DEPARTMENT
+    public function projects()
+    {
+        return $this->hasManyThrough(Project::class, Department::class);
+    }
     
     public function users()
     {
         return $this->hasMany(User::class);
     }
+
+    
 
     public function owner()
     {
