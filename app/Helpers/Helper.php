@@ -51,7 +51,7 @@ class Helper
     public static function sendEmail($data)
     {
         try{
-            Mail::to('teamplocom@gmail.com')->send(new ContactMail());
+            Mail::to('teamplocom@gmail.com')->send(new ContactMail($data));
             $msg = 'Email Function Runned Successfully';
             $code = 200;
         }catch(\Exception $e){

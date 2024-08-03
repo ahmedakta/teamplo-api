@@ -23,7 +23,8 @@ class UserController extends Controller
     public function contactUs(Request $request)
     {
         try{
-            $data = $request->all();
+            $response = [];
+            $data = $request->all()['params'];
             Helper::sendEmail($data);
             $msg = 'Email Sent Successfully';
             $code = 200;
