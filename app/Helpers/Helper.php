@@ -29,7 +29,7 @@ class Helper
                 $column == 'id' ? $field['isUnique'] = true : '';
                 $field['field'] = $column;
                 $field['title'] = ucwords(str_replace('_', ' ', $column));
-                $field['width'] = "150px";
+                $field['width'] = $column == 'id' ? "75px" : "150px";
                 array_push($fields , $field);
             }
         }
