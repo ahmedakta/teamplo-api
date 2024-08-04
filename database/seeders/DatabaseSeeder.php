@@ -8,6 +8,7 @@ use App\Models\Content;
 use App\Models\Department;
 use App\Models\Permission;
 use App\Models\Project;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Hash; // <-- import it at the top
 
 use App\Models\User;
@@ -149,5 +150,8 @@ class DatabaseSeeder extends Seeder
 
         // geenrate fake contentes
         Content::factory(10)->create();
+
+        // create comment
+        Comment::create(['project_id' => 1 , 'user_id' => 1 , 'comment_desc' => 'Real Test Comment' , 'status' => 1]);
     }
 }

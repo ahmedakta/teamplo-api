@@ -112,7 +112,7 @@ class ProjectController extends Controller
 
     public function view($slug)
     {
-        $data['rec'] = Project::where('slug', $slug)->first();
+        $data['rec'] = Project::where('slug', $slug)->with('comments')->first();
         $data['form']['departments'] = $this->currentUser->company->departments->where('status' , 1);
         return response()->json(['data' => $data , 'message' => 'success' ] , 200);
     }

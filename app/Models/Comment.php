@@ -14,4 +14,13 @@ class Comment extends Model
         'comment_desc',
         'status',
     ];
+
+    public function project()
+    {
+        return $this->belongsTo(Poject::class , 'project_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class , 'user_id');
+    }
 }
