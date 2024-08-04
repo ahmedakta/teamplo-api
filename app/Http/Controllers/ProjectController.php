@@ -112,7 +112,8 @@ class ProjectController extends Controller
 
     public function view($slug)
     {
-        $data = Project::where('slug', $slug)->first();
+        $data['rec'] = Project::where('slug', $slug)->first();
+        $data['form']['departments'] = $this->currentUser->company->departments->where('status' , 1);
         return response()->json(['data' => $data , 'message' => 'success' ] , 200);
     }
 
@@ -150,8 +151,8 @@ class ProjectController extends Controller
     public function create()
     {
         $departments = $this->currentUser->company->departments->where('status' , 1);
-        $data['stages'] = Category::where('parent_id' , 1)->get();
-        $data['departments'] = $departments;
+        $data['form']['stages'] = Category::where('parent_id' , 1)->get();
+        $data['form']['departments'] = $departments;
         return response()->json(['data' => $data ,'message' => 'sucess'], 200);
     }
 
