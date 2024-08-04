@@ -23,7 +23,7 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
         // get search params
-        $search_params = [
+        $data['search_params'] = [
             ['Projects.project_name', 'LIKE', '%' . $request->get('search') . '%'],
             ['Projects.department_id', $request->get('department_id')],
             ['Projects.project_start_at', $request->get('project_start_at')],
@@ -32,13 +32,18 @@ class ProjectController extends Controller
             ['Projects.project_priority', $request->get('project_priority')],
             ['Projects.project_budget', $request->get('project_budget')],
         ];
+        // Get Sort params
+        $data['sort_params'] = [
+            'sort_by' => $request->get('sort_by'),
+            'order' => $request->get('order'),
+        ];
         // Filter out null values
-        $search_params = array_filter($search_params, function($param) {
+        $data['search_params'] = array_filter($data['search_params'], function($param) {
             return !is_null($param[1]);
         });
         
         // page ( // IF WE ARE FILTERING DATA WE REMOVING THE PAGE  )
-        $page = count($search_params) > 1 ? 1 : $request->get('page');
+        $page = count($data['search_params']) > 1 ? 1 : $request->get('page');
 
         // selected fields
         $selected_columns = [
@@ -67,7 +72,7 @@ class ProjectController extends Controller
         $fields = Helper::dataTable('Project' , $data_table_columns);   
 
         $data['cols'] = json_encode($fields);
-        $projects = $this->currentUser->company->projects()->where($search_params)
+        $projects = $this->currentUser->company->projects()->where($data['search_params'])
         ->with([
             'priority:id,category_name,category_color',
             'stage:id,category_name,category_color',
@@ -75,8 +80,7 @@ class ProjectController extends Controller
             'users'
         ])
         ->select($selected_columns)
-        ->orderBy('created_at', 'desc')  // First order by created_at in descending order
-        ->orderBy('project_priority', 'asc')  // Then order by priority_id in ascending order
+        ->orderBy($data['sort_params']['sort_by'] ?? 'created_at', $data['sort_params']['order'] ?? 'desc')  // First order by created_at in descending order
         ->paginate(15, ['*'], 'page', $page);       
         
         // GET PROGRESS OF PROJECTS
