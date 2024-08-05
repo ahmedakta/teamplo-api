@@ -80,7 +80,7 @@ class ProjectController extends Controller
             'users'
         ])
         ->select($selected_columns)
-        ->orderBy($data['sort_params']['sort_by'] ?? 'created_at', $data['sort_params']['order'] ?? 'desc')  // First order by created_at in descending order
+        ->orderBy($data['sort_params']['sort_by'] ?? 'created_at', $data['sort_params']['order'] ?? 'ASC')  // First order by created_at in descending order
         ->paginate(15, ['*'], 'page', $page);       
         
         // GET PROGRESS OF PROJECTS
@@ -112,7 +112,13 @@ class ProjectController extends Controller
 
     public function view($slug)
     {
-        $data['rec'] = Project::where('slug', $slug)->with('comments')->first();
+        $data['rec'] = Project::where('slug', $slug)->with('comments.user')->first();
+        // TODO
+        // $getComments = request()->query('getComments'); // Check if 'getComments' query parameter is present
+        // if($getComments)
+        // {
+        //     $data['rec']['comments'] = $project->comments;
+        // }
         $data['form']['departments'] = $this->currentUser->company->departments->where('status' , 1);
         return response()->json(['data' => $data , 'message' => 'success' ] , 200);
     }

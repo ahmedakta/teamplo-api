@@ -8,6 +8,7 @@ use App\Http\Controllers\ContentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContentCreatorController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DepartmentController;
 
 // Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
@@ -38,6 +39,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/project/assign-user' , [ProjectController::class , 'userAssignment']);
     Route::get('/projects' , [ProjectController::class , 'index']);
     Route::get('/projects/create' , [ProjectController::class , 'create']);
+    // ******* Projects Comments  Routes Sections ************
+    Route::post('/project/{slug}/comment/save' , [CommentController::class , 'save']); // TODO 
+
     
     // ******************* Contents Routes Sections ***********************
     Route::get('/content-creator/dashboard' , [ContentCreatorController::class , 'index']);
