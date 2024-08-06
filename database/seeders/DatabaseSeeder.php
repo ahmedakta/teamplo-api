@@ -70,6 +70,26 @@ class DatabaseSeeder extends Seeder
             'category_color' => 'bg-green-300',
             'parent_id' => 2,
         ]);
+           // CURRENCIES
+           Category::create([
+            'category_name' => 'CURRENCIES',
+            ]);
+            Category::create([
+                'category_name' => 'USD',
+                'category_color' => 'bg-green-300',
+                'parent_id' => 3,
+            ]);
+            Category::create([
+                'category_name' => 'EUR',
+                'category_color' => 'bg-green-300',
+                'parent_id' => 3,
+            ]);
+            Category::create([
+                'category_name' => 'TL',
+                'category_color' => 'bg-green-300',
+                'parent_id' => 3,
+            ]);
+
         // create company
         Company::create([
             'company_name' => 'Teamplo',
@@ -153,5 +173,7 @@ class DatabaseSeeder extends Seeder
 
         // create comment
         Comment::create(['project_id' => 1 , 'user_id' => 1 , 'comment_desc' => 'Real Test Comment' , 'status' => 1]);
+
+       
     }
 }

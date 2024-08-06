@@ -14,6 +14,8 @@ class Company extends Model
         'company_phone',
         'company_email',
         'company_website',
+        'company_logo',
+        'company_size',
         'address',
         'address_country',
         'address_city',

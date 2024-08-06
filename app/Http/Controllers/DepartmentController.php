@@ -16,7 +16,7 @@ class DepartmentController extends Controller
     public function index()
     {
         // Get All Active Departments
-        $departments = $this->currentUser->company->departments->where('status' , 1)->select(['id', 'slug', 'department_name','department_desc']);
+        $departments = $this->currentUser->company->departments()->select(['id', 'slug', 'department_name','department_desc'])->withCount(['projects' , 'users'])->where('status' , 1)->get();
         $data['departments'] =$departments;
         return response()->json(['data' => $data , 'message' => 'success'] ,200);
     }

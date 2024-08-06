@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Comment extends Model
 {
@@ -19,6 +20,12 @@ class Comment extends Model
     {
         return $this->belongsTo(Poject::class , 'project_id');
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->diffForHumans();
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class , 'user_id');

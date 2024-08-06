@@ -19,6 +19,8 @@ return new class extends Migration
             $table->longText('company_phone')->nullable();
             $table->longText('company_email')->nullable();
             $table->longText('company_website')->nullable();
+            $table->integer('company_size')->default(5);
+            $table->string('company_logo')->nullable();
             $table->string('address')->nullable();
             $table->string('address_city')->nullable();
             $table->string('address_country')->nullable();

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('currency_id')->default(11)->comment('USD is a default currency');
             $table->string('project_name');
             $table->string('slug');
             $table->string('project_description');
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->integer('status');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('currency_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('project_priority')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('project_stage')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();

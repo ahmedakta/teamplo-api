@@ -13,6 +13,7 @@ class Project extends Model
         'project_name',
         'slug',
         'category_id',
+        'currency_id',
         'department_id',
         'project_description',
         'project_start_at',
