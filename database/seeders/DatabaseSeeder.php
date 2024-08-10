@@ -36,33 +36,33 @@ class DatabaseSeeder extends Seeder
         // STATUSES
         Category::create([
             'category_name' => 'Completed',
-            'category_color' => 'bg-green-300',
+            'category_color' => 'bg-green-100',
             'parent_id' => 1,
         ]);
         Category::create([
             'category_name' => 'Not Started',
-            'category_color' => 'bg-gray-500',
+            'category_color' => 'bg-gray-100',
             'parent_id' => 1,
         ]);
         Category::create([
             'category_name' => 'In Progress',
-            'category_color' => 'bg-blue-500',
+            'category_color' => 'bg-blue-100',
             'parent_id' => 1,
         ]);
         Category::create([
             'category_name' => 'Cancelled',
-            'category_color' => 'bg-red-500',
+            'category_color' => 'bg-red-100',
             'parent_id' => 1,
         ]);
         // PRIORITIES
         Category::create([
             'category_name' => 'High',
-            'category_color' => 'bg-red-500',
+            'category_color' => 'bg-red-100',
             'parent_id' => 2,
         ]);
         Category::create([
             'category_name' => 'Medium',
-            'category_color' => 'bg-orange-500',
+            'category_color' => 'bg-orange-100',
             'parent_id' => 2,
         ]);
         Category::create([
@@ -76,17 +76,17 @@ class DatabaseSeeder extends Seeder
             ]);
             Category::create([
                 'category_name' => 'USD',
-                'category_color' => 'bg-green-300',
+                'category_color' => 'bg-green-100',
                 'parent_id' => 3,
             ]);
             Category::create([
                 'category_name' => 'EUR',
-                'category_color' => 'bg-green-300',
+                'category_color' => 'bg-green-100',
                 'parent_id' => 3,
             ]);
             Category::create([
                 'category_name' => 'TL',
-                'category_color' => 'bg-green-300',
+                'category_color' => 'bg-green-100',
                 'parent_id' => 3,
             ]);
 
