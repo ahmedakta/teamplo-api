@@ -89,6 +89,13 @@ class DatabaseSeeder extends Seeder
                 'category_color' => 'bg-green-100',
                 'parent_id' => 3,
             ]);
+            Category::create([
+                'category_name' => 'CONTENT',
+            ]);
+            Category::create([
+                'category_name' => 'BLOG',
+                'parent_id' => 14,
+            ]);
 
         // create company
         Company::create([

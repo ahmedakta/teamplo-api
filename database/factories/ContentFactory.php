@@ -18,7 +18,7 @@ class ContentFactory extends Factory
     {
         return [
             'category_id' => 1,
-            'type_id' => 1,
+            'type_id' => 15,
             'user_id' => 2,
             'content_title' => fake()->name(),
             'seo_title' => fake()->name(),

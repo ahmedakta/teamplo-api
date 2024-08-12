@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\Http\Controllers\TaskController;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Admin\TaskController;
 use App\Models\Department;
 use App\Models\Task;
 
