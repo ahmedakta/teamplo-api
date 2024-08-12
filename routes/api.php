@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Admin\ContentController;
+use App\Http\Controllers\ContentController as FrontContentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ContentCreatorController;
 use App\Http\Controllers\Admin\ProjectController;
@@ -56,8 +57,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
     // ******************* FRONTEND FORMS ***********************
-    // Contact Routes
+    // _________ Contact __________
     Route::post('/contact-us' , [UserController::class , 'contactUs']);
+
+    // __________ BLOGS ______________
+    Route::get('/blogs' , [FrontContentController::class , 'blogs' ]);
 
     
 // Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
