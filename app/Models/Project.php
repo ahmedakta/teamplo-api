@@ -34,20 +34,20 @@ class Project extends Model
         ];
     }
 
-    public function getProjectEndAtAttribute($value)
-    {
-        // example date
-        $futureDate = Carbon::parse($value);
-        $now = Carbon::now();
-        return (int) $now->diffInDays($futureDate);
-    }
-    public function getProjectStartAtAttribute($value)
-    {
-        // example date
-        $futureDate = Carbon::parse($value);
-        $now = Carbon::now();
-        return (int) $now->diffInDays($futureDate);
-    }
+    // public function getProjectEndAtAttribute($value)
+    // {
+    //     // example date
+    //     $futureDate = Carbon::parse($value);
+    //     $now = Carbon::now();
+    //     return (int) $now->diffInDays($futureDate);
+    // }
+    // public function getProjectStartAtAttribute($value)
+    // {
+    //     // example date
+    //     $futureDate = Carbon::parse($value);
+    //     $now = Carbon::now();
+    //     return (int) $now->diffInDays($futureDate);
+    // }
     public function department()
     {
         return $this->belongsTo(Department::class);
