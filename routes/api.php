@@ -62,6 +62,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // __________ BLOGS ______________
     Route::get('/blogs' , [FrontContentController::class , 'blogs' ]);
+    Route::get('/blogs/{slug}' , [FrontContentController::class , 'view' ]);
 
     
 // Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {

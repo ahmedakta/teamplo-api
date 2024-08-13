@@ -55,7 +55,7 @@ class ContentController extends Controller
         });
 
         // selected fields
-        $data_table_columns = ['id' , 'user_id' , 'category_id' , 'content_title','content_body','slug', 'status'  , 'created_at' , 'updated_at'];
+        $data_table_columns = ['id' , 'user_id' , 'category_id','content_image' , 'slug' , 'content_title','content_body','slug', 'status'  , 'created_at' , 'updated_at'];
         $contents = Content::where($search_params)
         ->with([
             'category:id,category_name,category_color',
@@ -77,7 +77,7 @@ class ContentController extends Controller
 
     public function view($slug)
     {
-        $data = Content::where('slug', $slug)->first();
+        $data = Content::where('slug', $slug)->with('user')->first();
         return response()->json(['data' => $data , 'message' => 'success' ] , 200);
     }
 

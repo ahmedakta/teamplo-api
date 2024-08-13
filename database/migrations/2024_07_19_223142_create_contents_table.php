@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->integer('type_id')->nullable();
             $table->string('content_title');
+            $table->string('content_image')->nullable();
             $table->string('slug');
             $table->longText('content_body');
             $table->string('seo_title');

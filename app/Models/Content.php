@@ -14,6 +14,7 @@ class Content extends Model
         'user_id',
         'type_id',
         'content_title',
+        'content_image',
         'content_body',
         'slug',
         'seo_title',
