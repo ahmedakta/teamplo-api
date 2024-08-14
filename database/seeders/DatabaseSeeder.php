@@ -102,31 +102,55 @@ class DatabaseSeeder extends Seeder
             'company_name' => 'Teamplo',
             'company_desc' => 'Company Managment Software', // ADMIN ACCOUNT
         ]);
-        // create users
-        User::factory()->create([
-            'name' => 'Ahmet AKTA',
-            'company_id' => 1,
-            'role_id' => 1, // ADMIN ACCOUNT
-            'email' => 'ahmdekta@gmail.com',
-            'image' => 'default_profile_image.png',
-            'password' => bcrypt('asdasdasd'),
-        ]);
-        
-        User::factory()->create([
-            'name' => 'Melike Kayabaşı',
-            'role_id' => 3, // Content Creator ACCOUNT
-            'email' => 'melikekayabasi@gmail.com',
-            'image' => 'default_profile_image.png',
-            'password' => bcrypt('asdasdasd'),
-        ]);
-        // random users
-        User::factory(20)->create();
+
         // assign projects to users
      
 
         
 
-        Department::factory(10)->create();
+        // Departments 
+        Department::factory()->create([
+            'department_name' => 'IT',
+            'department_desc' => 'It Departments',
+            'department_image' => NULL,
+            'company_id' => 1,
+            'status' => 1,
+        ]);
+        Department::factory()->create([
+            'department_name' => 'Marketing',
+            'department_desc' => 'It Departments',
+            'department_image' => NULL,
+            'company_id' => 1,
+            'status' => 1,
+        ]);
+        Department::factory()->create([
+            'department_name' => 'Social Media',
+            'department_desc' => 'It Departments',
+            'department_image' => NULL,
+            'company_id' => 1,
+            'status' => 1,
+        ]);
+                // create users
+                User::factory()->create([
+                    'name' => 'Ahmet AKTA',
+                    'company_id' => 1,
+                    'department_id' => 1,
+                    'role_id' => 1, // ADMIN ACCOUNT
+                    'email' => 'ahmdekta@gmail.com',
+                    'image' => 'default_profile_image.png',
+                    'password' => bcrypt('asdasdasd'),
+                ]);
+                
+                User::factory()->create([
+                    'name' => 'Melike Kayabaşı',
+                    'department_id' => 2,
+                    'role_id' => 3, // Content Creator ACCOUNT
+                    'email' => 'melikekayabasi@gmail.com',
+                    'image' => 'default_profile_image.png',
+                    'password' => bcrypt('asdasdasd'),
+                ]);
+                // random users
+                User::factory(20)->create();
         Project::factory(40)->create();
         Task::factory(10)->create();
         $projects = Project::all();

@@ -37,8 +37,22 @@ class Department extends Model
         return $this->hasMany(Project::class , 'department_id');
     }
 
-    public function scopeCompletedTasks()
+    public function scopeProgress()
     {
-        
+        $totalCompletedTasks = 0;
+        $totalTasks = 0;
+    
+        //  _____ get the progress of each department ____
+        if ($this->projects) {
+            foreach ($this->projects as $project) {
+                $totalTasks += $project->tasks->count();
+                $totalCompletedTasks += $project->completedTasks()->count();
+            }
+        }
+    
+        $progressValue = $totalTasks > 0 ? ($totalCompletedTasks / $totalTasks) * 100 : 0.0;
+        //  _____ End pf get the progress of each department ____
+    
+        return $progressValue;
     }
 }

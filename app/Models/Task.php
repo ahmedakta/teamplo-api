@@ -24,4 +24,9 @@ class Task extends Model
     {
         $this->belongsTo(Project::class , 'project_id');
     }
+
+    public function scopeCompletedTasks($query)
+    {
+        return $query->where('status' , 1);
+    }
 }

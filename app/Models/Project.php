@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Carbon\Carbon;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class Project extends Model
 {
@@ -48,6 +49,11 @@ class Project extends Model
     //     $now = Carbon::now();
     //     return (int) $now->diffInDays($futureDate);
     // }
+    public function scopeCompletedTasks()
+    {
+        return $this->tasks->where('status' , 1);
+    }
+ 
     public function department()
     {
         return $this->belongsTo(Department::class);
