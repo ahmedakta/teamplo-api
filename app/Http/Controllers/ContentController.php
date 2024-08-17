@@ -46,7 +46,7 @@ class ContentController extends Controller
         $typesIds = ['blogs' => 15];
         // get search params
         $search_params = [
-            ['type_id',$typesIds[$page]],
+            ['type_id', $typesIds[$page]],
         ];
           
         // Filter out null values
