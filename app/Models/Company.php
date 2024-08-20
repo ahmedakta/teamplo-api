@@ -37,15 +37,13 @@ class Company extends Model
         return $this->hasMany(User::class);
     }
 
-    
-
     public function owner()
     {
         return $this->users()
-                    ->whereHas('roles', function($query) {
-                        $query->where('name', 'owner');
-                    })
-                    ->first();
+        ->whereHas('roles', function($query) {
+            $query->where('name', 'owner');
+        })
+        ->first();
     }
 
 }

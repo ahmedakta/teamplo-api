@@ -112,7 +112,10 @@ class ProjectController extends Controller
 
     public function view($slug)
     {
-        $data['rec'] = Project::where('slug', $slug)->with('comments.user')->withCount('tasks')->first();
+        $data['rec'] = Project::where('slug', $slug)->with('comments.user')->withCount(['tasks', 'tasks as completed_tasks_count' => function ($query) {
+            $query->where('status', 1);
+        }])
+        ->first();
         // TODO
         // $getComments = request()->query('getComments'); // Check if 'getComments' query parameter is present
         // if($getComments)

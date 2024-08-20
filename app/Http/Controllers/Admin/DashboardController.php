@@ -107,6 +107,13 @@ class DashboardController extends Controller
             ];
 
             // ___ END OF COMPANY EMPLOYEES ___
+
+
+            // ___ KPI CARDS ____
+            $data['kpi']['company_users'] = $companyUsers->count();
+            $data['kpi']['company_projects'] = $company->projects()->count();
+            $data['kpi']['company_departments'] = $companyDepartments->count();
+            // ___ END OF KPI CARDS ___
         }
         return response()->json(['data' => $data , 'message' => 'success'] ,200);
     }

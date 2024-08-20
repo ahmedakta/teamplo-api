@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\DocBlock\Tag;
 
 class Task extends Model
 {
@@ -16,6 +17,7 @@ class Task extends Model
     protected $fillable = [
         'name',
         'project_id',
+        'parent_id',
         'description',
         'status',
     ];
@@ -23,6 +25,16 @@ class Task extends Model
     public function project()
     {
         $this->belongsTo(Project::class , 'project_id');
+    }
+
+    public function childTasks()
+    {
+        $this->hasMany(Task::class , 'parent_id');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 
     public function scopeCompletedTasks($query)
