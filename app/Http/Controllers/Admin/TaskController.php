@@ -12,9 +12,8 @@ class TaskController extends Controller
         // gettin data
         $department = Department::where('slug' , $department_slug)->first();
         $project = $department->projects->where('slug' , $project_slug)->first();
-        $department_project_tasks = $project->tasks;
         // set the data;
-        $data['data']['tasks'] = $department_project_tasks;
+        $data['data']['tasks'] = $project->tasks()->with('tags')->get();
         $data['data']['project'] = $project;
         $data['data']['department'] = $department;
         return response()->json(['data' => $data , 'message' => 'getted data'] , 200);

@@ -112,7 +112,7 @@ class ProjectController extends Controller
 
     public function view($slug)
     {
-        $data['rec'] = Project::where('slug', $slug)->with('comments.user')->withCount(['tasks', 'tasks as completed_tasks_count' => function ($query) {
+        $data['rec'] = Project::where('slug', $slug)->with(['comments.user','users'])->withCount(['tasks', 'tasks as completed_tasks_count' => function ($query) {
             $query->where('status', 1);
         }])
         ->first();
