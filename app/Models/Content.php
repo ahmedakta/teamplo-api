@@ -22,6 +22,7 @@ class Content extends Model
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'param_views',
         'status',
     ];
     public function sluggable(): array
@@ -43,7 +44,7 @@ class Content extends Model
     {
         return Carbon::parse($value)->diffForHumans();
     }
-    
+
     public function category()
     {
         return $this->belongsTo(Category::class , 'category_id');

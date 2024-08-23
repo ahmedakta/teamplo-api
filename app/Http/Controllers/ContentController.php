@@ -46,37 +46,54 @@ class ContentController extends Controller
         // _________________ Always we have main page ex 'blogs' and contents 'blogs' belongs to this page _____________
         $typesIds = ['blogs' => 15 , 'content' => 16];
 
-        // ______ get search params ______
+        // ______ data params ______
 
         $search_params = [
             ['status', 1],
         ];  
+        $order_params = ['created_at' => 'ASC'];
+        $limit = null;
+        $paginate = true;
 
+
+        // _______ if we are in home page , limit blogs.
+        if($page == '/')
+        {
+            $limit = 4;
+            $paginate = false;
+        }
         //  - ________ Filter out null values ______
         $search_params = array_filter($search_params, function($param) {
             return !is_null($param[1]);
         });
 
         // ______ get selected columns ______
-        $columns = ['id' , 'user_id' , 'category_id','content_image' ,'content_body','content_title','slug','created_at'];
+        $columns = ['id' , 'user_id' , 'category_id','content_image','param_views' ,'content_body','content_title','slug','created_at'];
 
 
         // _____ get main page _______
-        $content = Content::where('slug', $page)->with('user')->first();
+        $content = Content::where('slug', $page)->with('user')->select($columns)->first();
+        $contents = NULL;
 
+        // ______ get children pages ($contents) ______
+        $contentsModel = count($content->children) ? $content->children() : Content::query();
 
-        // ______ get children pages ______
-        $contents = $content->children()
+        $contents = $contentsModel
         ->select($columns)
         ->where($search_params)
-        ->orderBy('created_at', 'desc')  // First order by created_at in descending order
-        ->paginate();
+        ->limit($limit)
+        ->orderBy('created_at', 'desc');
+
+        $contents = $paginate ? $contents->paginate() : $contents->get();
 
         // - ______ loop in pages to set reading time _____ 
-        foreach ($contents as $key => $content) {
-        $wordsPerMinute = 200; // Average reading speed
-        $wordCount = str_word_count(strip_tags($content->content_body)); // Count words in content
-        $content->reading_time = ceil($wordCount / $wordsPerMinute);
+        if($contents)
+        {
+            foreach ($contents as $key => $content) {
+                $wordsPerMinute = 200; // Average reading speed
+                $wordCount = str_word_count(strip_tags($content->content_body)); // Count words in content
+                $content->reading_time = ceil($wordCount / $wordsPerMinute);
+            }
         }
 
 
@@ -90,10 +107,22 @@ class ContentController extends Controller
     {
         return $this->page('blogs', null , null );
     }
+    public function home()
+    {
+        return $this->page('/', null , null );
+    }
 
     public function view($slug)
     {
         $data = Content::where('slug', $slug)->with('user','children')->first();
+        // check if user viewed it before or not , if not , update page views count
+        $viewedContents = session()->get('viewed_contents', []);
+        if ($data && !in_array($data->id, $viewedContents)) {
+            $data->param_views += 1;
+            $data->save();
+            $viewedContents[] = $data->id;
+            session()->put('viewed_contents', $viewedContents);
+        }
         return response()->json(['data' => $data , 'message' => 'success' ] , 200);
     }
 

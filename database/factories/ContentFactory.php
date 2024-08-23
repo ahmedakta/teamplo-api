@@ -25,7 +25,7 @@ class ContentFactory extends Factory
             'seo_title' => fake()->name(),
             'seo_description' => fake()->name(),
             'seo_keywords' => fake()->name(),
-            'content_body' => fake()->paragraph(1),
+            'content_body' => fake()->paragraph(30),
             'status' => rand(1,0),
         ];
     }

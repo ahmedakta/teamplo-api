@@ -213,7 +213,7 @@ class DatabaseSeeder extends Seeder
             'seo_description' => 'Teamplo Company Managment Software',
             'seo_keywords' => 'teamplo,companymanagment',
             'category_id' => 14,
-            'slug' => null,
+            'slug' => '/',
         ]);
         // Blogs page 
         Content::create([
