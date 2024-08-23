@@ -41,32 +41,48 @@ class ContentController extends Controller
         return response()->json(['data' => $data , 'message' => 'getted data'] , 200);
     }
 
-    public function page($page = null, $subPage = null, $subSubPage = null)
+    public function page($page = '/', $subPage = null, $subSubPage = null)
     {
-        $typesIds = ['blogs' => 15];
-        // get search params
+        // _________________ Always we have main page ex 'blogs' and contents 'blogs' belongs to this page _____________
+        $typesIds = ['blogs' => 15 , 'content' => 16];
+
+        // ______ get search params ______
+
         $search_params = [
-            ['type_id', $typesIds[$page]],
-        ];
-          
-        // Filter out null values
+            ['status', 1],
+        ];  
+
+        //  - ________ Filter out null values ______
         $search_params = array_filter($search_params, function($param) {
             return !is_null($param[1]);
         });
 
-        // selected fields
-        $data_table_columns = ['id' , 'user_id' , 'category_id','content_image' , 'slug' , 'content_title','content_body','slug', 'status'  , 'created_at' , 'updated_at'];
-        $contents = Content::where($search_params)
-        ->with([
-            'category:id,category_name,category_color',
-            'user:id,name',
-        ])
-        ->select($data_table_columns)
+        // ______ get selected columns ______
+        $columns = ['id' , 'user_id' , 'category_id','content_image' ,'content_body','content_title','slug','created_at'];
+
+
+        // _____ get main page _______
+        $content = Content::where('slug', $page)->with('user')->first();
+
+
+        // ______ get children pages ______
+        $contents = $content->children()
+        ->select($columns)
+        ->where($search_params)
         ->orderBy('created_at', 'desc')  // First order by created_at in descending order
         ->paginate();
 
-        // set data
-        $data['data'] = $contents;
+        // - ______ loop in pages to set reading time _____ 
+        foreach ($contents as $key => $content) {
+        $wordsPerMinute = 200; // Average reading speed
+        $wordCount = str_word_count(strip_tags($content->content_body)); // Count words in content
+        $content->reading_time = ceil($wordCount / $wordsPerMinute);
+        }
+
+
+        // ____ set data ___
+        $data['content'] = $content;
+        $data['contents'] = $contents;
         return response()->json(['data' => $data , 'message' => 'getted data'] , 200);
     }
 
@@ -77,7 +93,7 @@ class ContentController extends Controller
 
     public function view($slug)
     {
-        $data = Content::where('slug', $slug)->with('user')->first();
+        $data = Content::where('slug', $slug)->with('user','children')->first();
         return response()->json(['data' => $data , 'message' => 'success' ] , 200);
     }
 

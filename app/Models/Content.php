@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -16,6 +17,7 @@ class Content extends Model
         'content_title',
         'content_image',
         'content_body',
+        'content_uri',
         'slug',
         'seo_title',
         'seo_description',
@@ -37,6 +39,11 @@ class Content extends Model
         return $this->belongsTo(User::class , 'user_id');
     }
 
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->diffForHumans();
+    }
+    
     public function category()
     {
         return $this->belongsTo(Category::class , 'category_id');

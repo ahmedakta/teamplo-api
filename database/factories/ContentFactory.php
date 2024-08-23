@@ -17,8 +17,9 @@ class ContentFactory extends Factory
     public function definition(): array
     {
         return [
-            'category_id' => 1,
+            'category_id' => 15,
             'type_id' => 15,
+            'parent_id' => 2,
             'user_id' => 2,
             'content_title' => fake()->name(),
             'seo_title' => fake()->name(),

@@ -19,12 +19,13 @@ return new class extends Migration
             $table->integer('type_id')->nullable();
             $table->string('content_title');
             $table->string('content_image')->nullable();
+            $table->string('content_uri')->nullable();
             $table->string('slug');
             $table->longText('content_body');
-            $table->string('seo_title');
-            $table->string('seo_description');
-            $table->string('seo_keywords');
-            $table->boolean('status');
+            $table->string('seo_title')->nullable();
+            $table->string('seo_description')->nullable();
+            $table->string('seo_keywords')->nullable();
+            $table->boolean('status')->default(0);
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('parent_id')->references('id')->on('contents');

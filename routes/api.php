@@ -57,6 +57,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
     // ******************* FRONTEND FORMS ***********************
+    // _________ Home Page ______ 
+    Route::get('/' , [FrontContentController::class , 'blogs' ]);
     // _________ Contact __________
     Route::post('/contact-us' , [UserController::class , 'contactUs']);
 

@@ -96,6 +96,10 @@ class DatabaseSeeder extends Seeder
                 'category_name' => 'BLOG',
                 'parent_id' => 14,
             ]);
+            Category::create([
+                'category_name' => 'CONTENT',
+                'parent_id' => 14,
+            ]);
 
         // create company
         Company::create([
@@ -199,7 +203,31 @@ class DatabaseSeeder extends Seeder
         }
         UserRole::create(['user_id' => 1 , 'role_id' => 1]);
 
-        // geenrate fake contentes
+        // MAIN CONTENTS
+        // Home page 
+        Content::create([
+            'content_title' => 'Teamplo | Company Managment',
+            'content_uri' => '/',
+            'content_body' => 'Teamplo Company Managment Software',
+            'seo_title' => 'Teamplo Company Managment Software',
+            'seo_description' => 'Teamplo Company Managment Software',
+            'seo_keywords' => 'teamplo,companymanagment',
+            'category_id' => 14,
+            'slug' => null,
+        ]);
+        // Blogs page 
+        Content::create([
+            'content_title' => 'Blogs | Teamplo',
+            'content_uri' => 'blogs',
+            'content_body' => 'Teamplo Blogs',
+            'seo_title' => 'Teamplo Blogs ',
+            'seo_description' => 'Teamplo Blogs',
+            'seo_keywords' => 'teamplo,company',
+            'category_id' => 14,
+            'slug' => 'blogs',
+        ]);
+
+        // geenrate fake blogs
         Content::factory(10)->create();
 
         // create comment
