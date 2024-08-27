@@ -61,8 +61,8 @@ class ProjectController extends Controller
             'id',
             'department_id',
             'project_name',
-            'project_start_at',
-            'project_end_at',
+            // 'project_start_at',
+            // 'project_end_at',
             'project_budget',
             'project_priority',
             'project_stage'
