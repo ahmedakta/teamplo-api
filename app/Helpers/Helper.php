@@ -39,11 +39,11 @@ class Helper
         {
             // Add Fields
             array_push($fields , ['width' => '100px','field' => 'progress' , 'title' => 'Progress' ]);
-            array_push($fields , ['field' => 'assignments' , 'title' => 'Assignments' ]);
+            array_push($fields , ['field' => 'assignments' , 'title' => 'Assignments' , 'width' => '100px' ]);
         }
 
         //    add actions column manually
-        array_push($fields , ['field' => 'actions' , 'title' => 'Actions' ]);
+        array_push($fields , ['field' => 'actions' , 'title' => 'Actions' , 'width' => '10px']);
 
         return $fields;
     } 

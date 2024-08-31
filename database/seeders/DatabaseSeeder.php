@@ -36,38 +36,38 @@ class DatabaseSeeder extends Seeder
         // STATUSES
         Category::create([
             'category_name' => 'Completed',
-            'category_color' => 'bg-green-100',
+            'category_color' => 'green',
             'parent_id' => 1,
         ]);
         Category::create([
             'category_name' => 'Not Started',
-            'category_color' => 'bg-gray-100',
+            'category_color' => 'gray',
             'parent_id' => 1,
         ]);
         Category::create([
             'category_name' => 'In Progress',
-            'category_color' => 'bg-blue-100',
+            'category_color' => 'blue',
             'parent_id' => 1,
         ]);
         Category::create([
             'category_name' => 'Cancelled',
-            'category_color' => 'bg-red-100',
+            'category_color' => 'red',
             'parent_id' => 1,
         ]);
         // PRIORITIES
         Category::create([
             'category_name' => 'High',
-            'category_color' => 'bg-red-100',
+            'category_color' => 'red',
             'parent_id' => 2,
         ]);
         Category::create([
             'category_name' => 'Medium',
-            'category_color' => 'bg-orange-100',
+            'category_color' => 'orange',
             'parent_id' => 2,
         ]);
         Category::create([
             'category_name' => 'Low',
-            'category_color' => 'bg-green-300',
+            'category_color' => 'green',
             'parent_id' => 2,
         ]);
            // CURRENCIES
@@ -76,17 +76,17 @@ class DatabaseSeeder extends Seeder
             ]);
             Category::create([
                 'category_name' => 'USD',
-                'category_color' => 'bg-green-100',
+                'category_color' => 'green',
                 'parent_id' => 3,
             ]);
             Category::create([
                 'category_name' => 'EUR',
-                'category_color' => 'bg-green-100',
+                'category_color' => 'green',
                 'parent_id' => 3,
             ]);
             Category::create([
                 'category_name' => 'TL',
-                'category_color' => 'bg-green-100',
+                'category_color' => 'green',
                 'parent_id' => 3,
             ]);
             Category::create([
